@@ -22,21 +22,24 @@ class ViewController: UIViewController {
         screenWidth = view.frame.size.width
         screenHeight = view.frame.size.height
 
+//        let test = TestView()
+//        self.view.addSubview(test)
         // 画面背景を設定
         self.view.backgroundColor = UIColor(red:0.85,green:1.0,blue:0.95,alpha:1.0)
         
-            createCircle(x: 100, y: 100) //タッチした座標にしたい
+//            createCircle(x: 100, y: 100) //タッチした座標にしたい
 
         }
     
     // 画面にタッチで呼ばれる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesBegan")
+//        print("touchesBegan")
 //        createCircle(x: 100, y: 100) //タッチした座標にしたい
     }
     
     //　ドラッグ時に呼ばれる
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+
         // タッチイベントを取得
         let touchEvent = touches.first!
         
@@ -53,11 +56,16 @@ class ViewController: UIViewController {
         
         // ドラッグしたy座標の移動距離
         let dy = newDy - preDy
-//        draw.move(x: newDx, y: newDy)
+        
+        //        draw.move(x: newDx, y: newDy)
         createCircle(x:  newDx, y: newDy) //タッチした座標にしたい
 //        self.view.addSubview(draw)
-        
-        print(newDx,newDy)
+//        updateCircle()
+//        print(newDx,newDy)
+    }
+    
+    func updateCircle() {
+        view.setNeedsDisplay()
     }
     
     override func didReceiveMemoryWarning() {
