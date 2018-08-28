@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     
     //　ドラッグ時に呼ばれる
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-
+draw.touchesMoved(touches, with: event)
         // タッチイベントを取得
         let touchEvent = touches.first!
         
