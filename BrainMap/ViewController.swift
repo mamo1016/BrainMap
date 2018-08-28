@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touchesBegan")
 //        createCircle(x: 100, y: 100) //タッチした座標にしたい
-}
+    }
     
     //　ドラッグ時に呼ばれる
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -53,8 +53,9 @@ class ViewController: UIViewController {
         
         // ドラッグしたy座標の移動距離
         let dy = newDy - preDy
-        draw.move(x: newDx, y: newDy)
-        self.view.addSubview(draw)
+//        draw.move(x: newDx, y: newDy)
+        createCircle(x:  newDx, y: newDy) //タッチした座標にしたい
+//        self.view.addSubview(draw)
         
         print(newDx,newDy)
     }
@@ -69,8 +70,8 @@ class ViewController: UIViewController {
         circleArray.append(draw)
         self.view.addSubview(draw)
         if circleArray.count >= 2{
-//            circleArray[0].removeFromSuperview()
-//            circleArray.remove(at: 0)
+            circleArray[0].removeFromSuperview()
+            circleArray.remove(at: 0)
         }
 
         // 不透明にしない（透明）
