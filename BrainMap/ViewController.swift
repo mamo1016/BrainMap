@@ -1,82 +1,54 @@
-//
-//  ViewController.swift
-//  BrainMap
-//
-//  Created by 上田　護 on 2018/08/21.
-//  Copyright © 2018年 mamoru.ueda. All rights reserved.
-//
-
 import UIKit
+import BWWalkthrough
 
-class ViewController: UIViewController {
-
-    // Screen Size の取得
-    var screenWidth:CGFloat!
-    var screenHeight:CGFloat!
-    
-    var circleArray:[Draw] = []
-    var draw: Draw!
+class ViewController: UIViewController, BWWalkthroughViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        screenWidth = view.frame.size.width
-        screenHeight = view.frame.size.height
-
-        // 画面背景を設定
-        self.view.backgroundColor = UIColor(red:0.85,green:1.0,blue:0.95,alpha:1.0)
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-            createCircle(x: 100, y: 100) //タッチした座標にしたい
-
+        let userDefaults = UserDefaults.standard
+        
+        if !userDefaults.bool(forKey: "walkthroughPresented") {
+            
+            showWalkthrough()
+            
+            userDefaults.set(true, forKey: "walkthroughPresented")
+            userDefaults.synchronize()
         }
-    
-    // 画面にタッチで呼ばれる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesBegan")
-//        createCircle(x: 100, y: 100) //タッチした座標にしたい
     }
     
-    //　ドラッグ時に呼ばれる
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // タッチイベントを取得
-        let touchEvent = touches.first!
+    @IBAction func showWalkthrough(){
         
-        // ドラッグ前の座標, Swift 1.2 から
-        let preDx = touchEvent.previousLocation(in: self.view).x
-        let preDy = touchEvent.previousLocation(in: self.view).y
+        // Walkthrough.storyboard のインスタンス作成
+        let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
         
-        // ドラッグ後の座標
-        let newDx = touchEvent.location(in: self.view).x
-        let newDy = touchEvent.location(in: self.view).y
+        // 先程設定した Storyboard ID を元に Storyboard内の ViewController を呼び出す
+        let walkthrough = stb.instantiateViewController(withIdentifier: "walk") as! BWWalkthroughViewController
+        let page_one = stb.instantiateViewController(withIdentifier: "walk1")
+        let page_two = stb.instantiateViewController(withIdentifier: "walk2")
+        let page_three = stb.instantiateViewController(withIdentifier: "walk3")
         
-        // ドラッグしたx座標の移動距離
-        let dx = newDx - preDx
+        // Walkthrough.storyboard の 1枚目の ViewController に delegateを設定
+        walkthrough.delegate = self
         
-        // ドラッグしたy座標の移動距離
-        let dy = newDy - preDy
-//        draw.move(x: newDx, y: newDy)
-        createCircle(x:  newDx, y: newDy) //タッチした座標にしたい
-//        self.view.addSubview(draw)
+        // ウォークスルーに載せたいページを追加していく
+        walkthrough.add(viewController:page_one)
+        walkthrough.add(viewController:page_two)
+        walkthrough.add(viewController:page_three)
         
-        print(newDx,newDy)
+        self.present(walkthrough, animated: true, completion: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    func createCircle(x: CGFloat, y: CGFloat){
-        draw = Draw(frame: CGRect(x: x-25, y: y-25, width: screenWidth, height: screenHeight))
-//        draw.roundRect.move(to: CGPoint(x:200,y:300))
-        circleArray.append(draw)
-        self.view.addSubview(draw)
-        if circleArray.count >= 2{
-            circleArray[0].removeFromSuperview()
-            circleArray.remove(at: 0)
-        }
-
-        // 不透明にしない（透明）
-        draw.isOpaque = false
+    func walkthroughPageDidChange(_ pageNumber: Int) {
+        print("Current Page \(pageNumber)")
     }
     
+    func walkthroughCloseButtonPressed() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
-

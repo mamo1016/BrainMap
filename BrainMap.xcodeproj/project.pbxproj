@@ -13,6 +13,8 @@
 		045AF008212BFFB600688FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045AF007212BFFB600688FB6 /* Assets.xcassets */; };
 		045AF00B212BFFB600688FB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045AF009212BFFB600688FB6 /* LaunchScreen.storyboard */; };
 		045AF013212C04C300688FB6 /* Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045AF012212C04C300688FB6 /* Draw.swift */; };
+		04D909C42135428800CA407D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D909C32135428800CA407D /* MapViewController.swift */; };
+		F5115AF307EEE5CAD9FB650A /* Pods_BrainMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA97EB0E5C337C963DA7813 /* Pods_BrainMap.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		045AF00A212BFFB600688FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		045AF00C212BFFB600688FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		045AF012212C04C300688FB6 /* Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Draw.swift; sourceTree = "<group>"; };
+		04D909C32135428800CA407D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		055E54E5C87282B7C994F9FA /* Pods-BrainMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrainMap/Pods-BrainMap.release.xcconfig"; sourceTree = "<group>"; };
+		7AA97EB0E5C337C963DA7813 /* Pods_BrainMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrainMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B7E47A3594A18563B2EC74B /* Pods-BrainMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrainMap/Pods-BrainMap.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5115AF307EEE5CAD9FB650A /* Pods_BrainMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,8 @@
 			children = (
 				045AEFFF212BFFB400688FB6 /* BrainMap */,
 				045AEFFE212BFFB400688FB6 /* Products */,
+				FCC475AF8593A29CBAAB11CB /* Pods */,
+				4229262CA734F5D13DA89FDE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,8 +72,26 @@
 				045AF009212BFFB600688FB6 /* LaunchScreen.storyboard */,
 				045AF00C212BFFB600688FB6 /* Info.plist */,
 				045AF012212C04C300688FB6 /* Draw.swift */,
+				04D909C32135428800CA407D /* MapViewController.swift */,
 			);
 			path = BrainMap;
+			sourceTree = "<group>";
+		};
+		4229262CA734F5D13DA89FDE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7AA97EB0E5C337C963DA7813 /* Pods_BrainMap.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FCC475AF8593A29CBAAB11CB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8B7E47A3594A18563B2EC74B /* Pods-BrainMap.debug.xcconfig */,
+				055E54E5C87282B7C994F9FA /* Pods-BrainMap.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 045AF00F212BFFB600688FB6 /* Build configuration list for PBXNativeTarget "BrainMap" */;
 			buildPhases = (
+				1C523B00245E8C97BF354CA1 /* [CP] Check Pods Manifest.lock */,
 				045AEFF9212BFFB400688FB6 /* Sources */,
 				045AEFFA212BFFB400688FB6 /* Frameworks */,
 				045AEFFB212BFFB400688FB6 /* Resources */,
+				CA5E4EDBC6A9C3C8D8F6CD25 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +162,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1C523B00245E8C97BF354CA1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BrainMap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA5E4EDBC6A9C3C8D8F6CD25 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BrainMap/Pods-BrainMap-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BWWalkthrough/BWWalkthrough.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BWWalkthrough.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrainMap/Pods-BrainMap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		045AEFF9212BFFB400688FB6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -141,6 +209,7 @@
 				045AF013212C04C300688FB6 /* Draw.swift in Sources */,
 				045AF003212BFFB400688FB6 /* ViewController.swift in Sources */,
 				045AF001212BFFB400688FB6 /* AppDelegate.swift in Sources */,
+				04D909C42135428800CA407D /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +351,7 @@
 		};
 		045AF010212BFFB600688FB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B7E47A3594A18563B2EC74B /* Pods-BrainMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +370,7 @@
 		};
 		045AF011212BFFB600688FB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 055E54E5C87282B7C994F9FA /* Pods-BrainMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

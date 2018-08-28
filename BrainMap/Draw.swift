@@ -27,5 +27,9 @@ class Draw: UIView {
 
     func move(x: CGFloat,y: CGFloat){
         roundRect.move(to: CGPoint(x:x,y:y))
+        print("x=\(x),y=\(y)")
+        print(roundRect)
     }
+    
+    
 }
