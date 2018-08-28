@@ -21,6 +21,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         screenWidth = view.frame.size.width
         screenHeight = view.frame.size.height
+        
+        draw = Draw(frame: CGRect(x: screenWidth/2, y: screenHeight/2, width: 70, height: 70))
+        draw.center = self.view.center
+//        draw.centering(x: screenWidth/2,y: screenHeight/2)
+        draw.layer.cornerRadius = 35
+        draw.layer.masksToBounds = true
+        draw.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        self.view.addSubview(draw)
 
 //        let test = TestView()
 //        self.view.addSubview(test)
@@ -39,7 +47,7 @@ class ViewController: UIViewController {
     
     //　ドラッグ時に呼ばれる
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-draw.touchesMoved(touches, with: event)
+//draw.touchesMoved(touches, with: event)
         // タッチイベントを取得
         let touchEvent = touches.first!
         
@@ -58,7 +66,7 @@ draw.touchesMoved(touches, with: event)
         let dy = newDy - preDy
         
         //        draw.move(x: newDx, y: newDy)
-        createCircle(x:  newDx, y: newDy) //タッチした座標にしたい
+//        createCircle(x:  newDx, y: newDy) //タッチした座標にしたい
 //        self.view.addSubview(draw)
 //        updateCircle()
 //        print(newDx,newDy)

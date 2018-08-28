@@ -9,6 +9,9 @@
 import UIKit
 
 class Draw: UIView {
+    var centerX: CGFloat!
+    var centerY: CGFloat!
+    
     enum BehaviorMode : Int{
         case None
         case MoveWindowPosition
@@ -20,18 +23,25 @@ class Draw: UIView {
     
     private var locationInitialTouch:CGPoint!
 
+    func centering(x: CGFloat,y: CGFloat){
+        centerX = x
+        centerY = y
+    }
     override func draw(_ rect: CGRect) {
+        
         // 角が丸い矩形 -------------------------------------
-        roundRect = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 25)
+        roundRect = UIBezierPath(roundedRect: CGRect(x: 10, y: 10, width: 50, height: 50), cornerRadius: 25)
         // stroke 色の設定
         UIColor(red: 0.3, green: 1, blue: 0.2, alpha: 1).setStroke()
         roundRect.lineWidth = 2
         roundRect.stroke()
+//        view.layer.cornerRadius = 25
 //        print("Draw")
-        
+//        view.layer.cornerRadius = 100.0;
 //        roundRect.move(to: CGPoint(x:0,y:0))
 //
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
