@@ -11,6 +11,7 @@ import UIKit
 class Draw: UIView {
     var centerX: CGFloat!
     var centerY: CGFloat!
+    var inside:Bool = false
     
     enum BehaviorMode : Int{
         case None
@@ -45,12 +46,15 @@ class Draw: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
-            print("Began:(\(location.x), \(location.y))")
+//            print("Began:(\(location.x), \(location.y))")
             locationInitialTouch = location
             
-            if location.x > bounds.width - 20 && location.y > bounds.height - 20{
-                behaviorMode = .ChangeWindowSize
+            if location.x < bounds.width - 20 && location.y < bounds.height - 20{
+//                behaviorMode = .ChangeWindowSize
+                print("inside")
+                inside = true
             }else{
+                print("outside")
                 behaviorMode = .MoveWindowPosition
             }
         }
@@ -59,11 +63,11 @@ class Draw: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
-            print("Moved:(\(location.x), \(location.y))")
+//            print("Moved:(\(location.x), \(location.y))")
             
-            if behaviorMode == .ChangeWindowSize {
-                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
-            }else{
+            if behaviorMode == .ChangeWindowSize {            //サイズ変更
+//                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
+            }else{  //移動
                 frame = frame.offsetBy(dx: location.x - locationInitialTouch.x, dy: location.y - locationInitialTouch.y)
             }
         }
@@ -71,18 +75,21 @@ class Draw: UIView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
-            print("Ended:(\(location.x), \(location.y))")
+//            print("Ended:(\(location.x), \(location.y))")
             
             if behaviorMode == .ChangeWindowSize {
-                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
+//                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
             }else{
                 frame = frame.offsetBy(dx: location.x - locationInitialTouch.x, dy: location.y - locationInitialTouch.y)
             }
             behaviorMode = .None
         }
+//        inside = false
     }
 
     func move(x: CGFloat,y: CGFloat){
         roundRect.move(to: CGPoint(x:x,y:y))
     }
+    
+    
 }

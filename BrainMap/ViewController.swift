@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     // Screen Size の取得
     var screenWidth:CGFloat!
@@ -22,54 +22,51 @@ class ViewController: UIViewController {
         screenWidth = view.frame.size.width
         screenHeight = view.frame.size.height
         
-        draw = Draw(frame: CGRect(x: screenWidth/2, y: screenHeight/2, width: 70, height: 70))
-        draw.center = self.view.center
-//        draw.centering(x: screenWidth/2,y: screenHeight/2)
-        draw.layer.cornerRadius = 35
-        draw.layer.masksToBounds = true
-        draw.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        self.view.addSubview(draw)
+        createCircle()  //サークルの作成
 
-//        let test = TestView()
-//        self.view.addSubview(test)
         // 画面背景を設定
         self.view.backgroundColor = UIColor(red:0.85,green:1.0,blue:0.95,alpha:1.0)
+        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(ViewController.tapped(_:)))
         
-//            createCircle(x: 100, y: 100) //タッチした座標にしたい
-
+        // デリゲートをセット
+        tapGesture.delegate = self
+        
+        self.view.addGestureRecognizer(tapGesture)
+        
+        // ロングプレス
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.longPress(_:)))
+        
+        longPressGesture.delegate = self
+        
+        // Viewに追加.
+        self.view.addGestureRecognizer(longPressGesture)//            createCircle(x: 100, y: 100) //タッチした座標にしたい
         }
     
     // 画面にタッチで呼ばれる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        print("touchesBegan")
-//        createCircle(x: 100, y: 100) //タッチした座標にしたい
     }
     
     //　ドラッグ時に呼ばれる
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//draw.touchesMoved(touches, with: event)
         // タッチイベントを取得
         let touchEvent = touches.first!
         
         // ドラッグ前の座標, Swift 1.2 から
-        let preDx = touchEvent.previousLocation(in: self.view).x
-        let preDy = touchEvent.previousLocation(in: self.view).y
+//        let preDx = touchEvent.previousLocation(in: self.view).x
+//        let preDy = touchEvent.previousLocation(in: self.view).y
         
         // ドラッグ後の座標
-        let newDx = touchEvent.location(in: self.view).x
-        let newDy = touchEvent.location(in: self.view).y
+//        let newDx = touchEvent.location(in: self.view).x
+//        let newDy = touchEvent.location(in: self.view).y
         
-        // ドラッグしたx座標の移動距離
-        let dx = newDx - preDx
+//        // ドラッグしたx座標の移動距離
+//        let dx = newDx - preDx
+//
+//        // ドラッグしたy座標の移動距離
+//        let dy = newDy - preDy
         
-        // ドラッグしたy座標の移動距離
-        let dy = newDy - preDy
-        
-        //        draw.move(x: newDx, y: newDy)
-//        createCircle(x:  newDx, y: newDy) //タッチした座標にしたい
-//        self.view.addSubview(draw)
-//        updateCircle()
-//        print(newDx,newDy)
     }
     
     func updateCircle() {
@@ -80,18 +77,35 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
-    func createCircle(x: CGFloat, y: CGFloat){
-        draw = Draw(frame: CGRect(x: x-25, y: y-25, width: screenWidth, height: screenHeight))
-//        draw.roundRect.move(to: CGPoint(x:200,y:300))
-        circleArray.append(draw)
+    func createCircle(){
+        //Drawインスタンス作成
+        draw = Draw(frame: CGRect(x: screenWidth/2, y: screenHeight/2, width: 70, height: 70))
+        draw.center = self.view.center
+        draw.layer.cornerRadius = 35
+        draw.layer.masksToBounds = true
+        draw.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.view.addSubview(draw)
-        if circleArray.count >= 2{
-            circleArray[0].removeFromSuperview()
-            circleArray.remove(at: 0)
-        }
 
-        // 不透明にしない（透明）
-        draw.isOpaque = false
+    }
+    
+    // Tap イベント
+    @objc func tapped(_ sender: UITapGestureRecognizer){
+        if sender.state == .ended {
+            print("Tap")
+        }else if sender.state == .began {
+            print("Tap began")
+        }
+    }
+    
+    // Long Press イベント
+    @objc func longPress(_ sender: UILongPressGestureRecognizer){
+        if sender.state == .began && draw.inside {
+            // 開始は認知される
+            print("LongPress began")
+            createCircle()
+        }else if sender.state == .ended {
+
+        }
     }
     
 }
