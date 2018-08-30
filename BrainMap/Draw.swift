@@ -8,6 +8,21 @@
 
 import UIKit
 
+extension UIView {
+    func parentViewController() -> UIViewController? {
+
+        var parentResponder: UIResponder? = self
+
+        while true {
+            guard let nextResponder = parentResponder?.next else { return nil }
+            if let viewController = nextResponder as? UIViewController {
+                return viewController
+            }
+            parentResponder = nextResponder
+        }
+    }
+}
+
 class Draw: UIView {
     var X: CGFloat!
     var Y: CGFloat!
@@ -45,8 +60,9 @@ class Draw: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let viewController = ViewController()
-        viewController.touchCheck = true
-        print(viewController.touchCheck)
+//        ViewController.
+//        print(viewController.touchCheck)
+        
 
         if let touch = touches.first {
             let location = touch.location(in: self)
