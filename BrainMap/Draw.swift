@@ -9,9 +9,9 @@
 import UIKit
 
 class Draw: UIView {
-    var centerX: CGFloat!
-    var centerY: CGFloat!
-    var inside:Bool = false
+    var X: CGFloat!
+    var Y: CGFloat!
+
     
     enum BehaviorMode : Int{
         case None
@@ -24,10 +24,10 @@ class Draw: UIView {
     
     private var locationInitialTouch:CGPoint!
 
-    func centering(x: CGFloat,y: CGFloat){
-        centerX = x
-        centerY = y
-    }
+//    func centering(x: CGFloat,y: CGFloat){
+//        centerX = x
+//        centerY = y
+//    }
     override func draw(_ rect: CGRect) {
         
         // 角が丸い矩形 -------------------------------------
@@ -44,17 +44,24 @@ class Draw: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let viewController = ViewController()
+        viewController.touchCheck = true
+        print("変更した")
+
         if let touch = touches.first {
             let location = touch.location(in: self)
 //            print("Began:(\(location.x), \(location.y))")
             locationInitialTouch = location
-            
+//            print(location)
+            X = frame.origin.x + location.x/2
+            Y = frame.origin.y + location.y/2
+
             if location.x < bounds.width - 20 && location.y < bounds.height - 20{
 //                behaviorMode = .ChangeWindowSize
-                print("inside")
-                inside = true
+//                print("inside")
+                
             }else{
-                print("outside")
+//                print("outside")
                 behaviorMode = .MoveWindowPosition
             }
         }
@@ -69,6 +76,7 @@ class Draw: UIView {
 //                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
             }else{  //移動
                 frame = frame.offsetBy(dx: location.x - locationInitialTouch.x, dy: location.y - locationInitialTouch.y)
+//                print(frame.origin)
             }
         }
     }
@@ -84,12 +92,8 @@ class Draw: UIView {
             }
             behaviorMode = .None
         }
-//        inside = false
     }
 
-    func move(x: CGFloat,y: CGFloat){
-        roundRect.move(to: CGPoint(x:x,y:y))
-    }
-    
+
     
 }
