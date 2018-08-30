@@ -15,9 +15,11 @@ extension UIView {
 
         while true {
             guard let nextResponder = parentResponder?.next else { return nil }
+            
             if let viewController = nextResponder as? UIViewController {
                 return viewController
             }
+            
             parentResponder = nextResponder
         }
     }
@@ -51,27 +53,28 @@ class Draw: UIView {
         UIColor(red: 0.3, green: 1, blue: 0.2, alpha: 1).setStroke()
         roundRect.lineWidth = 2
         roundRect.stroke()
-//        view.layer.cornerRadius = 25
-//        print("Draw")
-//        view.layer.cornerRadius = 100.0;
-//        roundRect.move(to: CGPoint(x:0,y:0))
-//
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let viewController = ViewController()
+//        let viewController = ViewController()
 //        ViewController.
-//        print(viewController.touchCheck)
-        
+        print("began")
+        if let viewController = self.parentViewController() as? ViewController {
+            viewController.touchCheck = true
+            viewController.position = frame.origin
+        }
+        behaviorMode = .MoveWindowPosition
 
         if let touch = touches.first {
             let location = touch.location(in: self)
 //            print("Began:(\(location.x), \(location.y))")
             locationInitialTouch = location
 //            print(location)
-            X = frame.origin.x + location.x/2
-            Y = frame.origin.y + location.y/2
-
+//            X = frame.origin.x + location.x/2
+//            Y = frame.origin.y + location.y/2
+//            print(location)
+//            print(frame.origin)
             if location.x < bounds.width - 20 && location.y < bounds.height - 20{
 //                behaviorMode = .ChangeWindowSize
 //                print("inside")
@@ -84,6 +87,7 @@ class Draw: UIView {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+            print("moved")
         if let touch = touches.first {
             let location = touch.location(in: self)
 //            print("Moved:(\(location.x), \(location.y))")
@@ -97,6 +101,7 @@ class Draw: UIView {
         }
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+         print("end")
         if let touch = touches.first {
             let location = touch.location(in: self)
 //            print("Ended:(\(location.x), \(location.y))")
