@@ -61,7 +61,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         touchCheck = false
 
         let touchEvent = touches.first! //このタッチイベントの場合確実に1つ以上タッチ点があるので`!`つけてOKです
-        let location = touchEvent.location(in: self.view) //in: には対象となるビューを入れます
+//        let location = touchEvent.location(in: self.view) //in: には対象となるビューを入れます
     }
     
     //　ドラッグ時に呼ばれる
@@ -70,18 +70,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let touchEvent = touches.first!
         
         // ドラッグ前の座標, Swift 1.2 から
-//        let preDx = touchEvent.previousLocation(in: self.view).x
-//        let preDy = touchEvent.previousLocation(in: self.view).y
+        let preDx = touchEvent.previousLocation(in: self.view).x
+        let preDy = touchEvent.previousLocation(in: self.view).y
         
         // ドラッグ後の座標
-//        let newDx = touchEvent.location(in: self.view).x
-//        let newDy = touchEvent.location(in: self.view).y
+        let newDx = touchEvent.location(in: self.view).x
+        let newDy = touchEvent.location(in: self.view).y
         
 //        // ドラッグしたx座標の移動距離
-//        let dx = newDx - preDx
+        let dx = newDx - preDx
 //
 //        // ドラッグしたy座標の移動距離
-//        let dy = newDy - preDy
+        let dy = newDy - preDy
+        
         
     }
     

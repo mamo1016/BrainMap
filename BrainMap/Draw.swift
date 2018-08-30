@@ -41,10 +41,6 @@ class Draw: UIView {
     
     private var locationInitialTouch:CGPoint!
 
-//    func centering(x: CGFloat,y: CGFloat){
-//        centerX = x
-//        centerY = y
-//    }
     override func draw(_ rect: CGRect) {
         
         // 角が丸い矩形 -------------------------------------
@@ -57,8 +53,6 @@ class Draw: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let viewController = ViewController()
-//        ViewController.
         print("began")
         if let viewController = self.parentViewController() as? ViewController {
             viewController.touchCheck = true
@@ -68,19 +62,10 @@ class Draw: UIView {
 
         if let touch = touches.first {
             let location = touch.location(in: self)
-//            print("Began:(\(location.x), \(location.y))")
             locationInitialTouch = location
-//            print(location)
-//            X = frame.origin.x + location.x/2
-//            Y = frame.origin.y + location.y/2
-//            print(location)
-//            print(frame.origin)
             if location.x < bounds.width - 20 && location.y < bounds.height - 20{
 //                behaviorMode = .ChangeWindowSize
-//                print("inside")
-                
             }else{
-//                print("outside")
                 behaviorMode = .MoveWindowPosition
             }
         }
@@ -90,13 +75,10 @@ class Draw: UIView {
             print("moved")
         if let touch = touches.first {
             let location = touch.location(in: self)
-//            print("Moved:(\(location.x), \(location.y))")
-            
             if behaviorMode == .ChangeWindowSize {            //サイズ変更
 //                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
             }else{  //移動
                 frame = frame.offsetBy(dx: location.x - locationInitialTouch.x, dy: location.y - locationInitialTouch.y)
-//                print(frame.origin)
             }
         }
     }
@@ -104,7 +86,6 @@ class Draw: UIView {
          print("end")
         if let touch = touches.first {
             let location = touch.location(in: self)
-//            print("Ended:(\(location.x), \(location.y))")
             
             if behaviorMode == .ChangeWindowSize {
 //                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
@@ -114,7 +95,4 @@ class Draw: UIView {
             behaviorMode = .None
         }
     }
-
-
-    
 }
