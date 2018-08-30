@@ -14,6 +14,7 @@
 		045AF008212BFFB600688FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045AF007212BFFB600688FB6 /* Assets.xcassets */; };
 		045AF00B212BFFB600688FB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045AF009212BFFB600688FB6 /* LaunchScreen.storyboard */; };
 		045AF013212C04C300688FB6 /* Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045AF012212C04C300688FB6 /* Draw.swift */; };
+		E0C226AC82F53E2E64E825BB /* Pods_BrainMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0A72A57EBB038B5381D8FA /* Pods_BrainMap.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,9 @@
 		045AF00A212BFFB600688FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		045AF00C212BFFB600688FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		045AF012212C04C300688FB6 /* Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Draw.swift; sourceTree = "<group>"; };
+		3207D08AAF3D0D695C7E8B0D /* Pods-BrainMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrainMap/Pods-BrainMap.release.xcconfig"; sourceTree = "<group>"; };
+		41B556858929D841A8CB15A8 /* Pods-BrainMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrainMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrainMap/Pods-BrainMap.debug.xcconfig"; sourceTree = "<group>"; };
+		BF0A72A57EBB038B5381D8FA /* Pods_BrainMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrainMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0C226AC82F53E2E64E825BB /* Pods_BrainMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 			children = (
 				045AEFFF212BFFB400688FB6 /* BrainMap */,
 				045AEFFE212BFFB400688FB6 /* Products */,
+				5B0168CD1CB5EE1C7814C428 /* Pods */,
+				06C010D50174B7C2D8D5AAEF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +77,23 @@
 			path = BrainMap;
 			sourceTree = "<group>";
 		};
+		06C010D50174B7C2D8D5AAEF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF0A72A57EBB038B5381D8FA /* Pods_BrainMap.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B0168CD1CB5EE1C7814C428 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				41B556858929D841A8CB15A8 /* Pods-BrainMap.debug.xcconfig */,
+				3207D08AAF3D0D695C7E8B0D /* Pods-BrainMap.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,6 +101,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 045AF00F212BFFB600688FB6 /* Build configuration list for PBXNativeTarget "BrainMap" */;
 			buildPhases = (
+				81DF567DCD7D48D71F9C917F /* [CP] Check Pods Manifest.lock */,
 				045AEFF9212BFFB400688FB6 /* Sources */,
 				045AEFFA212BFFB400688FB6 /* Frameworks */,
 				045AEFFB212BFFB400688FB6 /* Resources */,
@@ -135,6 +160,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		81DF567DCD7D48D71F9C917F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BrainMap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		045AEFF9212BFFB400688FB6 /* Sources */ = {
@@ -286,15 +332,13 @@
 		};
 		045AF010212BFFB600688FB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41B556858929D841A8CB15A8 /* Pods-BrainMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9RWL9BWXDB;
 				INFOPLIST_FILE = BrainMap/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.mamoru.ueda.BrainMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -304,15 +348,13 @@
 		};
 		045AF011212BFFB600688FB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3207D08AAF3D0D695C7E8B0D /* Pods-BrainMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9RWL9BWXDB;
 				INFOPLIST_FILE = BrainMap/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.mamoru.ueda.BrainMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

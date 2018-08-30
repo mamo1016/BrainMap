@@ -46,7 +46,7 @@ class Draw: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let viewController = ViewController()
         viewController.touchCheck = true
-        print("変更した")
+        print(viewController.touchCheck)
 
         if let touch = touches.first {
             let location = touch.location(in: self)
