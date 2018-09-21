@@ -20,6 +20,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 //    var location: CGPoint!
     var touchCheck: Bool = false
     var position: CGPoint = CGPoint(x:0.0,y:0.0)
+    var oldPosition: CGPoint = CGPoint(x:0.0,y:0.0)
+    var newPosition: CGPoint = CGPoint(x:0.0,y:0.0)
+    var circle: UIView?
+    
+    let line = UIBezierPath();
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         screenWidth = view.frame.size.width
@@ -54,6 +61,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         //            createCircle(x: 100, y: 100) //タッチした座標にしたい
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ViewController.timerUpdate), userInfo: nil, repeats: true)
         
+//        // 起点
+//        line.move(to: frame.origin);
+//        // 帰着点
+//        line.addLine(to: CGPoint(x: 0, y: 0));
+//        // ライン幅
+//        line.lineWidth = 4
+//        // 描画
+//        line.stroke();
+
     }
     
     // 画面にタッチで呼ばれる
@@ -83,8 +99,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 //        // ドラッグしたy座標の移動距離
         let dy = newDy - preDy
         
-        
     }
+
     
     func updateCircle() {
         view.setNeedsDisplay()
@@ -105,7 +121,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.view.addSubview(draw[i])
         
         touchCheck = false
-        print("create")
+//        oldPosition = position
+        circle = draw[i]
     }
     
     // Tap イベント
@@ -120,10 +137,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 //                print("\(sender.state == .began) && \(draw.inside)")
         if sender.state == .began && touchCheck{
             // 開始は認知される
-//            print("LongPress began")
             createCircle()
-        }else if sender.state == .ended {
 
+        }else if sender.state == .changed {
+//            print("change")
+//            let location = sender.location(in: view)
+//            print(location.x)
+//            print(location.y)
+            let location = sender.location(in: view)
+            var frame = circle?.frame
+            frame?.origin = CGPoint(x: location.x-35, y: location.y-35)
+            circle?.frame = frame!
+            newPosition = (frame?.origin)!
+        }else if sender.state == .ended {
+            print("end-----")
+            for i in 0 ..< draw.count{
+//                print(draw[i].frame.origin)
+            }
+            print("\(oldPosition)---\(newPosition)")
         }
     }
     

@@ -42,22 +42,39 @@ class Draw: UIView {
     private var locationInitialTouch:CGPoint!
 
     override func draw(_ rect: CGRect) {
+        let random: [CGFloat] = [CGFloat(arc4random_uniform(10)), CGFloat(arc4random_uniform(10)), CGFloat(arc4random_uniform(10))]
         
         // 角が丸い矩形 -------------------------------------
         roundRect = UIBezierPath(roundedRect: CGRect(x: 10, y: 10, width: 50, height: 50), cornerRadius: 25)
+
+//        let line = UIBezierPath();
+//        // 起点
+//        line.move(to: frame.origin);
+//        // 帰着点
+//        line.addLine(to: CGPoint(x: 0, y: 0));
+//        // ライン幅
+//        line.lineWidth = 4
+//        // 描画
+//        line.stroke();
         // stroke 色の設定
-        UIColor(red: 0.3, green: 1, blue: 0.2, alpha: 1).setStroke()
-        roundRect.lineWidth = 2
-        roundRect.stroke()
-        
+//        UIColor(red: 0.3, green: 1, blue: 0.2, alpha: 1).setStroke()
+        // 塗りつぶし色の設定
+//        UIColor(red: 0.5, green: 0.8, blue: 0.2, alpha: 1).setFill()
+        UIColor(red: random[0]/10, green: random[1]/10, blue: random[2]/10, alpha: 1).setFill()
+        // 内側の塗りつぶし
+        roundRect.fill()
+//        roundRect.lineWidth = 2
+//        roundRect.stroke()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("began")
+        print("began-\(frame.origin)")
+        //ViewContorollerの変数を変更
         if let viewController = self.parentViewController() as? ViewController {
             viewController.touchCheck = true
-            viewController.position = frame.origin
+            viewController.oldPosition = frame.origin
         }
+
         behaviorMode = .MoveWindowPosition
 
         if let touch = touches.first {
@@ -72,7 +89,7 @@ class Draw: UIView {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-            print("moved")
+//            print("moved")
         if let touch = touches.first {
             let location = touch.location(in: self)
             if behaviorMode == .ChangeWindowSize {            //サイズ変更
@@ -81,9 +98,20 @@ class Draw: UIView {
                 frame = frame.offsetBy(dx: location.x - locationInitialTouch.x, dy: location.y - locationInitialTouch.y)
             }
         }
+        
+        //ViewContorollerの変数を変更
+        if let viewController = self.parentViewController() as? ViewController {
+            viewController.newPosition = frame.origin
+        }
+
     }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
          print("end")
+        //ViewContorollerの変数を変更
+        if let viewController = self.parentViewController() as? ViewController {
+                print("\(viewController.oldPosition)-\(viewController.newPosition)")
+        }
         if let touch = touches.first {
             let location = touch.location(in: self)
             
@@ -94,5 +122,7 @@ class Draw: UIView {
             }
             behaviorMode = .None
         }
+        
+        
     }
 }
