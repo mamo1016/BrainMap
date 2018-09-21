@@ -24,8 +24,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var newPosition: CGPoint = CGPoint(x:0.0,y:0.0)
     var circle: UIView?
     
-    let line = UIBezierPath();
-
+    weak var shapeLayer: CAShapeLayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +138,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             // 開始は認知される
             createCircle()
 
+
         }else if sender.state == .changed {
 //            print("change")
 //            let location = sender.location(in: view)
@@ -150,12 +150,46 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             circle?.frame = frame!
             newPosition = (frame?.origin)!
         }else if sender.state == .ended {
+            createLine()
             print("end-----")
             for i in 0 ..< draw.count{
 //                print(draw[i].frame.origin)
             }
             print("\(oldPosition)---\(newPosition)")
         }
+    }
+    
+    func createLine() {
+        // remove old shape layer if any
+        
+        self.shapeLayer?.removeFromSuperlayer()
+        
+        // create whatever path you want
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: oldPosition.x+35, y: oldPosition.y+35))
+        path.addLine(to: CGPoint(x: newPosition.x+35, y: oldPosition.y+35))
+        path.addLine(to: CGPoint(x: newPosition.x+35, y: newPosition.y+35))
+        
+        // create shape layer for that path
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.fillColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+        shapeLayer.strokeColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1).cgColor
+        shapeLayer.lineWidth = 4
+        shapeLayer.path = path.cgPath
+        
+        // animate it
+        
+//        view.layer.addSublayer(shapeLayer)
+        view.layer.insertSublayer(shapeLayer, at: 0)
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0
+        animation.duration = 1
+        shapeLayer.add(animation, forKey: "MyAnimation")
+        // save shape layer
+        
+        self.shapeLayer = shapeLayer
     }
     
     @objc func timerUpdate() {
