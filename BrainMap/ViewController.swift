@@ -17,7 +17,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var screenHeight:CGFloat!
     
     var circleArray:[Draw] = []
-    var draw: [Draw] = []
+    var draw: Draw!
 //    var location: CGPoint!
     var touchCheck: Bool = false
     var position: CGPoint = CGPoint(x:0.0,y:0.0)
@@ -33,13 +33,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         screenWidth = view.frame.size.width
         screenHeight = view.frame.size.height
+//        //Drawインスタンス作成
+//        draw.append(Draw(frame: CGRect(x: screenWidth/2, y: screenHeight/2, width: 70, height: 70)))
+//        draw[0].center = self.view.center
+//        draw[0].layer.cornerRadius = 35
+//        draw[0].layer.masksToBounds = true
+//        draw[0].backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+//        self.view.addSubview(draw[0])
         //Drawインスタンス作成
-        draw.append(Draw(frame: CGRect(x: screenWidth/2, y: screenHeight/2, width: 70, height: 70)))
-        draw[0].center = self.view.center
-        draw[0].layer.cornerRadius = 35
-        draw[0].layer.masksToBounds = true
-        draw[0].backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        self.view.addSubview(draw[0])
+        draw = Draw(frame: CGRect(x: screenWidth/2, y: screenHeight/2, width: 70, height: 70))
+        draw.center = self.view.center
+        draw.layer.cornerRadius = 35
+        draw.layer.masksToBounds = true
+        draw.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        draw.tag = i
+        self.view.addSubview(draw)
 
 
         // 画面背景を設定
@@ -63,22 +71,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         //            createCircle(x: 100, y: 100) //タッチした座標にしたい
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ViewController.timerUpdate), userInfo: nil, repeats: true)
         
-//        // 起点
-//        line.move(to: frame.origin);
-//        // 帰着点
-//        line.addLine(to: CGPoint(x: 0, y: 0));
-//        // ライン幅
-//        line.lineWidth = 4
-//        // 描画
-//        line.stroke();
-
     }
     
     // 画面にタッチで呼ばれる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchCheck = false
-
-        let touchEvent = touches.first! //このタッチイベントの場合確実に1つ以上タッチ点があるので`!`つけてOKです
+//        let touchEvent = touches.first! //このタッチイベントの場合確実に1つ以上タッチ点があるので`!`つけてOKです
 //        let location = touchEvent.location(in: self.view) //in: には対象となるビューを入れます
     }
     
@@ -113,31 +111,33 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func createCircle(){
-        i += 1
         //Drawインスタンス作成
-        draw.append(Draw(frame: CGRect(x:position.x, y:position.y-10, width: 70, height: 70)))
+        draw = Draw(frame: CGRect(x:position.x, y:position.y-10, width: 70, height: 70))
         //        draw.center = CGPoint(x: location.x, y: location.y)
-        draw[i].layer.cornerRadius = 35
-        draw[i].layer.masksToBounds = true
-        draw[i].backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        self.view.addSubview(draw[i])
-//        draw[i].tag = i
+        draw.layer.cornerRadius = 35
+        draw.layer.masksToBounds = true
+        draw.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        self.view.addSubview(draw)
+        draw.tag = i
         touchCheck = false
 //        oldPosition = position
-        circle = draw[i]
+        circle = draw
+        i += 1
+
     }
     
     // Tap イベント
     @objc func tapped(_ sender: UITapGestureRecognizer){
         if sender.state == .ended {
-//            print("Tap")
+            print("tap:\(String(describing: sender.view))")
         }
+        print(draw.viewWithTag(1))
     }
     
     // Long Press イベント
     @objc func longPress(_ sender: UILongPressGestureRecognizer){
 //                print("\(sender.state == .began) && \(draw.inside)")
-        print("longPress")
+//        print("longPress:\(sender)")
         if sender.state == .began && touchCheck{
             // 開始は認知される
             createCircle()
