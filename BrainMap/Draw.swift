@@ -67,6 +67,7 @@ class Draw: UIView {
 //        roundRect.stroke()
     }
     
+    //タッチされた瞬間
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("began-\(frame.origin)")
         //ViewContorollerの変数を変更
@@ -95,7 +96,7 @@ class Draw: UIView {
             if behaviorMode == .ChangeWindowSize {            //サイズ変更
 //                frame = CGRect(origin: frame.origin, size: CGSize(width: location.x, height: location.y ))
             }else{  //移動
-                frame = frame.offsetBy(dx: location.x - locationInitialTouch.x, dy: location.y - locationInitialTouch.y)
+//                frame = frame.offsetBy(dx: location.x - locationInitialTouch.x, dy: location.y - locationInitialTouch.y)
             }
         }
         

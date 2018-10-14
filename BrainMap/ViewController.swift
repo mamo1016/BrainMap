@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var i: Int = 0
-    
+    var j: Int = 0
+
     // Screen Size の取得
     var screenWidth:CGFloat!
     var screenHeight:CGFloat!
@@ -23,6 +24,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var oldPosition: CGPoint = CGPoint(x:0.0,y:0.0)
     var newPosition: CGPoint = CGPoint(x:0.0,y:0.0)
     var circle: UIView?
+    
+    var shapeArray: [CAShapeLayer] = []
     
     weak var shapeLayer: CAShapeLayer?
 
@@ -118,7 +121,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         draw[i].layer.masksToBounds = true
         draw[i].backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.view.addSubview(draw[i])
-        
+//        draw[i].tag = i
         touchCheck = false
 //        oldPosition = position
         circle = draw[i]
@@ -134,11 +137,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // Long Press イベント
     @objc func longPress(_ sender: UILongPressGestureRecognizer){
 //                print("\(sender.state == .began) && \(draw.inside)")
+        print("longPress")
         if sender.state == .began && touchCheck{
             // 開始は認知される
             createCircle()
-
-
         }else if sender.state == .changed {
 //            print("change")
 //            let location = sender.location(in: view)
@@ -152,9 +154,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }else if sender.state == .ended {
             createLine()
             print("end-----")
-            for i in 0 ..< draw.count{
-//                print(draw[i].frame.origin)
-            }
+//            for i in 0 ..< draw.count{
+////                print(draw[i].frame.origin)
+//            }
             print("\(oldPosition)---\(newPosition)")
         }
     }
@@ -162,27 +164,39 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     func createLine() {
         // remove old shape layer if any
         
-        self.shapeLayer?.removeFromSuperlayer()
+//        self.shapeLayer?.removeFromSuperlayer()
         
         // create whatever path you want
+        let random: [CGFloat] = [2 + CGFloat(arc4random_uniform(10)), 10 * CGFloat(arc4random_uniform(2))]
         
         let path = UIBezierPath()
-        path.move(to: CGPoint(x: oldPosition.x+35, y: oldPosition.y+35))
-        path.addLine(to: CGPoint(x: newPosition.x+35, y: oldPosition.y+35))
-        path.addLine(to: CGPoint(x: newPosition.x+35, y: newPosition.y+35))
+        path.move(to: CGPoint(x: oldPosition.x+35, y: oldPosition.y+35))    //始点
+        if Int(random[0]) % 2 == 0{
+            path.addLine(to: CGPoint(x: newPosition.x+35, y: oldPosition.y+35)) //横線
+        }else{
+            path.addLine(to: CGPoint(x: oldPosition.x+35, y: newPosition.y+35)) //横線
+        }
+        path.addLine(to: CGPoint(x: newPosition.x+35, y: newPosition.y+35)) //縦線
         
         // create shape layer for that path
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.fillColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
-        shapeLayer.strokeColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1).cgColor
-        shapeLayer.lineWidth = 4
+        shapeLayer.strokeColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1).cgColor
+        shapeLayer.lineWidth = random[0]
         shapeLayer.path = path.cgPath
         
+        shapeArray.append(shapeLayer)
+//        if shapeArray.count > 2{
+//            shapeArray.remove(at: 0)
+//        }
         // animate it
         
 //        view.layer.addSublayer(shapeLayer)
-        view.layer.insertSublayer(shapeLayer, at: 0)
+        //viewにssubLayerを追加
+        view.layer.insertSublayer(shapeArray[i-1], at: 0)
+//        print("createLine:\(view.layer.)")
+        
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
         animation.duration = 1
@@ -190,6 +204,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // save shape layer
         
         self.shapeLayer = shapeLayer
+        print("createLine:\(shapeLayer)")
     }
     
     @objc func timerUpdate() {
